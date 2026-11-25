@@ -7,6 +7,7 @@ export default Plugin.define({
     const ttlMs = (typeof ctx.options.cacheTtlMinutes === "number" ? ctx.options.cacheTtlMinutes : 5) * 60_000
     ctx.add(Slot, {
       at: "session.header",
+      order: -20,
       render(props) {
         const label = document.createElement("span")
         label.className = "text-12-regular text-text-weak whitespace-nowrap"

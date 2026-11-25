@@ -48,7 +48,7 @@ function host() {
   module.exports.default.setup({ options: { cacheTtlMinutes: 5 }, add: (_: any, item: any) => { contribution = item } })
   const label = contribution.render(props)
   return {
-    label, timers, setActive, setConnected, setMessages, setBoundary, setSession, server,
+    contribution, label, timers, setActive, setConnected, setMessages, setBoundary, setSession, server,
     tick(time: number) { now = time; for (const timer of [...timers]) timer() },
     dispose() { for (const effect of effects) for (const cleanup of effect.cleanups.splice(0)) cleanup() },
   }
@@ -60,6 +60,8 @@ const assistant = (id: string, read: number, input = 10, write = 0) => ({
 
 test("Desktop cache indicator updates, handles boundaries and expires", () => {
   const h = host()
+  expect(h.contribution.at).toBe("session.header")
+  expect(h.contribution.order).toBe(-20)
   expect(h.label.hidden).toBe(true)
   expect(h.timers.size).toBe(1)
   h.setMessages([assistant("a", 90)])

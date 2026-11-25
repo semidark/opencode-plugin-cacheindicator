@@ -85,6 +85,7 @@ var gui_default = import_gui.Plugin.define({
     const ttlMs = (typeof ctx.options.cacheTtlMinutes === "number" ? ctx.options.cacheTtlMinutes : 5) * 60000;
     ctx.add(import_gui.Slot, {
       at: "session.header",
+      order: -20,
       render(props) {
         const label = document.createElement("span");
         label.className = "text-12-regular text-text-weak whitespace-nowrap";
