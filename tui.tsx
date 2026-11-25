@@ -30,9 +30,10 @@ function CacheStatus(props: { context: Plugin.Context; sessionID: string }) {
     <Show when={cache()}>
       {(value) => (
         <text wrapMode="none" truncate flexShrink={1} minWidth={0}>
-          <span style={{ fg: theme.text.muted }}>{"  Cache: "}</span>
+          <span style={{ fg: theme.text.muted }}>{"· Cache: "}</span>
           <span style={{ fg: theme.text.base }}>{value().hit}</span>
           <span style={{ fg: color() }}>{value().rest}</span>
+          <span style={{ fg: theme.text.muted }}>{" ·"}</span>
         </text>
       )}
     </Show>
