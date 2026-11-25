@@ -9,7 +9,7 @@ const compaction = (id: string): Messages[number] => ({ id, type: "compaction", 
 
 test("reports the latest step's cache share and estimated warmth", () => {
   const messages = [assistant("old", 100, 0, 0), assistant("new", 10, 90, 0)]
-  expect(cacheSegment(messages, undefined, 300_000, 61_000)).toEqual({ hit: "90%", rest: " warm 4m", remaining: 240_000 })
+  expect(cacheSegment(messages, undefined, 300_000, 61_000)).toEqual({ hit: "90%", rest: " 4m", remaining: 240_000 })
   expect(cacheSegment(messages, undefined, 300_000, 301_001)).toEqual({ hit: "90%", rest: " cold", remaining: -1 })
 })
 

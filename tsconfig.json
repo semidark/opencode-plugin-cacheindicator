@@ -10,5 +10,5 @@
     "noEmit": true,
     "skipLibCheck": true
   },
-  "include": ["index.ts", "cache.ts", "tui.tsx"]
+  "include": ["index.ts", "cache.ts", "tui.tsx", "gui.ts"]
 }

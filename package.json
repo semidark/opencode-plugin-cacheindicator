@@ -20,14 +20,17 @@
   "files": [
     "index.ts",
     "cache.ts",
-    "tui.tsx"
+    "tui.tsx",
+    "gui-experimental.cjs"
   ],
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:gui": "bun build gui.ts --target browser --format cjs --outfile gui-experimental.cjs --external @opencode/plugin/gui --external solid-js"
   },
   "exports": {
     ".": "./index.ts",
-    "./tui": "./tui.tsx"
+    "./tui": "./tui.tsx",
+    "./gui-experimental": "./gui-experimental.cjs"
   },
   "dependencies": {
     "@opencode/plugin": "latest"

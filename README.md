@@ -5,17 +5,22 @@ the footer, alongside OpenCode's built-in usage and activity indicators.
 This is a cache-only fork of [opencode-plugin-statusline](https://github.com/Zorato/opencode-plugin-statusline).
 
 ```
-Cache: 88% warm 4m
+Cache: 88% 4m
 ```
 
 ## What it shows
 
 The percentage is the share of prompt tokens reported as cache reads in the
-latest step. `warm 4m` is an estimated remaining lifetime, `cold` means the
+latest step. `4m` is an estimated remaining lifetime, `cold` means the
 estimate has expired, and `--` means no cache activity was reported.
 
 The indicator hides itself when there is no assistant step with prompt usage.
 Context, cost, activity, and shortcuts remain the built-in footer's responsibility.
+
+The experimental Desktop widget shows the same cache status in the session
+header, using that session's server data. It hides when the session is inactive,
+disconnected, or has no prompt usage. Desktop compatibility still needs
+verification in the actual app; browser-only web clients do not load this entry.
 
 ## Install
 
@@ -110,7 +115,8 @@ The package follows the OpenCode v2 CLI plugin contract:
 {
   "exports": {
     ".": "./index.ts",
-    "./tui": "./tui.tsx"
+    "./tui": "./tui.tsx",
+    "./gui-experimental": "./gui-experimental.cjs"
   },
   "dependencies": {
     "@opencode/plugin": "latest"
@@ -134,11 +140,15 @@ The package follows the OpenCode v2 CLI plugin contract:
 ```sh
 npm install
 npm run typecheck
+bun run build:gui
+bun test
 npm pack --dry-run
 ```
 
 OpenCode loads the TypeScript sources directly, so the package ships `index.ts`,
-`cache.ts`, and `tui.tsx` without a build step.
+`cache.ts`, and `tui.tsx` without a build step. The Desktop entry is a prebuilt
+CommonJS bundle; rebuild and commit `gui-experimental.cjs` after changing
+`gui.ts` or `cache.ts`.
 
 ## License
 

@@ -36,5 +36,5 @@ export function cacheSegment(messages: ReadonlyArray<Message>, boundary: string 
   const expires = (last.time.completed ?? last.time.created) + ttlMs
   const remaining = expires - now
   if (remaining <= 0) return { hit, rest: " cold", remaining }
-  return { hit, rest: ` warm ${duration(remaining)}`, remaining }
+  return { hit, rest: ` ${duration(remaining)}`, remaining }
 }
