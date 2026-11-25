@@ -1,7 +1,8 @@
-# opencode-plugin-statusline
+# opencode-plugin-cacheindicator
 
 An [OpenCode](https://opencode.ai) TUI plugin that adds prompt cache status to
 the footer, alongside OpenCode's built-in usage and activity indicators.
+This is a cache-only fork of [opencode-plugin-statusline](https://github.com/Zorato/opencode-plugin-statusline).
 
 ```
 Cache: 88% warm 4m
@@ -18,24 +19,24 @@ Context, cost, activity, and shortcuts remain the built-in footer's responsibili
 
 ## Install
 
-Add the package to `plugins` in `opencode.jsonc`:
+Add the GitHub repository to `plugins` in `opencode.jsonc`:
 
 ```jsonc
 // ~/.config/opencode/opencode.jsonc
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugins": ["opencode-plugin-statusline"]
+  "plugins": ["github:semidark/opencode-plugin-cacheindicator#main"]
 }
 ```
 
-When the TUI connects to a remote server, or when you want the plugin to load
-only in the terminal, list it in `cli.json` instead:
+To load the plugin locally in the terminal, including when connected to a
+remote server, list it in `cli.json` instead:
 
 ```jsonc
 // ~/.config/opencode/cli.json
 {
   "$schema": "https://opencode.ai/v2/cli.json",
-  "plugins": ["opencode-plugin-statusline"]
+  "plugins": ["github:semidark/opencode-plugin-cacheindicator#main"]
 }
 ```
 
@@ -44,7 +45,7 @@ From a local checkout, point the entry at the **directory**:
 ```jsonc
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugins": ["/absolute/path/to/opencode-plugin-statusline"]
+  "plugins": ["/absolute/path/to/opencode-plugin-cacheindicator"]
 }
 ```
 
@@ -60,7 +61,7 @@ Pass options in the object form of `opencode.jsonc`:
 {
   "plugins": [
     {
-      "package": "opencode-plugin-statusline",
+      "package": "github:semidark/opencode-plugin-cacheindicator#main",
       "options": {
         "cacheTtlMinutes": 5
       }

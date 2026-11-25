@@ -1,5 +1,5 @@
 {
-  "name": "opencode-plugin-statusline",
+  "name": "opencode-plugin-cacheindicator",
   "version": "0.1.0",
   "description": "OpenCode TUI plugin: prompt cache status in the prompt footer",
   "type": "module",
@@ -7,20 +7,15 @@
   "author": "Alexey Rehov <alexey.rehov@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zorato/opencode-plugin-statusline.git"
+    "url": "git+https://github.com/semidark/opencode-plugin-cacheindicator.git"
   },
-  "bugs": {
-    "url": "https://github.com/Zorato/opencode-plugin-statusline/issues"
-  },
-  "homepage": "https://github.com/Zorato/opencode-plugin-statusline#readme",
+  "homepage": "https://github.com/semidark/opencode-plugin-cacheindicator#readme",
   "keywords": [
     "opencode",
     "opencode-plugin",
     "tui",
-    "statusline",
-    "context",
-    "prompt-cache",
-    "cost"
+    "cache",
+    "prompt-cache"
   ],
   "files": [
     "index.ts",
