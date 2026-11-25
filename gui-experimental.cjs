@@ -90,14 +90,38 @@ var gui_default = import_gui.Plugin.define({
         const label = document.createElement("span");
         label.className = "text-12-regular text-text-weak whitespace-nowrap";
         const [now, setNow] = import_solid_js.createSignal(Date.now());
+        const [usageVersion, setUsageVersion] = import_solid_js.createSignal(0);
+        let version = 0;
         import_solid_js.createEffect(() => {
-          if (!props.active || !props.session.server.connected)
+          const session = props.session;
+          if (!props.active || !session.server.connected)
             return;
+          const sessionID = session.id;
+          let active = true;
+          const refreshUsage = (event) => {
+            if (event.data.sessionID !== sessionID)
+              return;
+            queueMicrotask(() => {
+              if (!active)
+                return;
+              setNow(Date.now());
+              setUsageVersion(++version);
+            });
+          };
+          const data = session.server.data;
+          const stopEnded = data.on("session.step.ended", refreshUsage);
+          const stopFailed = data.on("session.step.failed", refreshUsage);
           setNow(Date.now());
           const timer = setInterval(() => setNow(Date.now()), 15000);
-          import_solid_js.onCleanup(() => clearInterval(timer));
+          import_solid_js.onCleanup(() => {
+            active = false;
+            stopEnded();
+            stopFailed();
+            clearInterval(timer);
+          });
         });
         import_solid_js.createEffect(() => {
+          usageVersion();
           const session = props.session;
           if (!props.active || !session.server.connected) {
             label.hidden = true;

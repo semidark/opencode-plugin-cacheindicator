@@ -13,6 +13,19 @@ test("reports the latest step's cache share and estimated warmth", () => {
   expect(cacheSegment(messages, undefined, 300_000, 301_001)).toEqual({ hit: "90%", rest: " cold", remaining: -1 })
 })
 
+test("a fresh cache read resets the estimate even without a cache write", () => {
+  const messages = [assistant("old", 10, 90, 0)]
+  expect(cacheSegment(messages, undefined, 300_000, 61_000)?.rest).toBe(" 4m")
+  messages.push(assistant("new", 10, 90, 0, 62_000))
+  expect(cacheSegment(messages, undefined, 300_000, 62_000)).toEqual({ hit: "90%", rest: " 5m", remaining: 300_000 })
+})
+
+test("shared cache calculation accepts custom lifetimes, including fractional minutes", () => {
+  const messages = [assistant("a", 10, 90, 0)]
+  expect(cacheSegment(messages, undefined, 15 * 60_000, 1_000)?.rest).toBe(" 15m")
+  expect(cacheSegment(messages, undefined, 1.5 * 60_000, 31_000)?.remaining).toBe(60_000)
+})
+
 test("handles no cache activity and empty prompt usage", () => {
   expect(cacheSegment([assistant("a", 20, 0, 0)], undefined, 300_000, 0)).toEqual({ hit: "--", rest: "", remaining: undefined })
   expect(cacheSegment([assistant("a", 0, 0, 0)], undefined, 300_000, 0)).toBeUndefined()

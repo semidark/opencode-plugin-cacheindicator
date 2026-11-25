@@ -86,8 +86,10 @@ Pass options in the object form of `opencode.jsonc`:
 - The cache share is `cache.read / (cache.read + cache.write + input)` of that
   step. The warm window starts at the completion time of the step and lasts
   `cacheTtlMinutes`.
-- The line refreshes every 15 seconds and reads no credentials. It sends no
-  requests and stores nothing.
+- The line refreshes every 15 seconds. Desktop also re-reads usage immediately
+  after a model step completes or fails, including steps that request tools.
+  Tool execution and new user messages alone do not reset the cache estimate.
+  The plugin reads no credentials, sends no requests, and stores nothing.
 
 ## Limitations
 
